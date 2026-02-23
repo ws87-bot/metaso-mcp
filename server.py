@@ -253,9 +253,10 @@ async def metaso_company_intel(params: CompanyIntelInput) -> str:
 
 if __name__ == "__main__":
     import sys
-    # 支持两种启动模式
     if "--http" in sys.argv:
-        port = int(os.environ.get("PORT", 8000))
-        mcp.run(transport="streamable_http", port=port)
+        mcp.run(transport="streamable-http")
     else:
         mcp.run()  # 默认 stdio
+
+# 用于 uvicorn 直接启动（Render/Railway 部署用）
+app = mcp.streamable_http_app()
